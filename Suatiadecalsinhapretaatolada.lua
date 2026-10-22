@@ -52,7 +52,7 @@ local FrameLayout = luajava.bindClass("android.widget.FrameLayout")
 
 local context = activity
 local window = context.getSystemService("window")
-local IMAGE_URL = "https://iili.io/BZYoLBt.png"
+local IMAGE_URL = "https://iili.io/nOWCuvs.jpg"
 local FONT_URL = "https://github.com/FortAwesome/Font-Awesome/raw/master/webfonts/fa-solid-900.ttf"
  
 local FontAwesome = nil 
@@ -1131,11 +1131,30 @@ local data = {
                         },
                         CHEATS = {
                             {name = "SPEED HACK 100X", type = "switch", key = "LM_SPEEDHACK", ativar = speedhk, desativar = speedhk},
-                            {name = "SPEED PLAYER 20X", type = "switch", acao = speed20x},
-                            {name = "SPEED PLAYER 30X", type = "switch", acao = speed30x},
-                            {name = "SPEED PLAYER 50X", type = "switch", acao = speed50x},
-                            {name = "SPEED PLAYER 100X", type = "switch", acao = speed100x},
-                            {name = "MATAR COM PUNHO", type = "switch", acao = a1}
+{
+    name = "SPEED PLAYER 20X",
+    type = "switch",
+    key = "LM_SPEED_20X",
+    ativar = speed20x
+},
+{
+    name = "SPEED PLAYER 30X",
+    type = "switch",
+    key = "LM_SPEED_30X",
+    ativar = speed30x
+},
+{
+    name = "SPEED PLAYER 50X",
+    type = "switch",
+    key = "LM_SPEED_50X",
+    ativar = speed50x
+},
+{
+    name = "SPEED PLAYER 100X",
+    type = "switch",
+    key = "LM_SPEED_100X",
+    ativar = speed100x
+},
                         },
                         REGEDIT = {
                             {name = "REGEDIT HS 50% #1", type = "switch", key = "LM_REGEDIT_HS50_1", ativar = v1, desativar = v1},
@@ -1203,7 +1222,7 @@ local mainLayout = {
                 { ImageView; id="img_banner"; layout_width="55dp"; layout_height="55dp"; clickable=true; layout_gravity="1"; background="#00000000"; };
                 {
                     LinearLayout; id="sidebar_content"; orientation="vertical"; layout_width="110dp"; layout_height="-1";
-                    { TextView; id="shimmer_main_title", text="LM TEAM PLUS V5"; textColor="-1"; textSize="11sp"; textStyle="bold"; layout_width="-1"; layout_marginTop="6dp"; gravity="1"; };
+                    { TextView; id="shimmer_main_title", text="LM TEAM PLUS V6"; textColor="-1"; textSize="11sp"; textStyle="bold"; layout_width="-1"; layout_marginTop="6dp"; gravity="1"; };
                     { View; layout_width="-1"; layout_height="2dp"; background=getGradientShape({toJavaInt("FF0000FF"), 0}, 0); layout_marginTop="8dp"; layout_marginBottom="12dp"; };
                     {
                         ScrollView; layout_width="-1"; layout_height="0dp"; layout_weight="1"; fillViewport=true;
@@ -1242,7 +1261,7 @@ local mainLayout = {
             {
                 LinearLayout; orientation="vertical"; gravity="17"; layout_width="-1"; layout_height="-1";
                 { TextView; id="splash_icon"; textSize="40sp"; textColor="-1"; gravity="17"; };
-                { TextView; id="splash_status"; text="SISTEMA LM TEAM PLUS V5"; textSize="11sp"; textColor="0xCCFFFFFF"; layout_marginTop="15dp"; textStyle="bold"; };
+                { TextView; id="splash_status"; text="SISTEMA LM TEAM PLUS V6"; textSize="11sp"; textColor="0xCCFFFFFF"; layout_marginTop="15dp"; textStyle="bold"; };
             };
         };
     };
@@ -1356,7 +1375,7 @@ invoke = function()
                 addMiraAdjustButtons(content_derecha)
                 
                 local infoText = luajava.new(TextView, context)
-                infoText.setText("LM TEAM PLUS V5")
+                infoText.setText("LM TEAM PLUS V6")
                 infoText.setTextColor(toJavaInt("88FFFFFF")) 
                 infoText.setTextSize(9)
                 infoText.setGravity(17) 
