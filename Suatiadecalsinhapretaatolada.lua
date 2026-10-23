@@ -1274,9 +1274,9 @@ end
 local function lmShowInfo(parent)
     local t = lmTheme()
     lmAddText(parent, "LM TEAM PLUS", 18, t.accent)
-    lmAddText(parent, "CRIADO OFICIAL @LEO MODZ", 12, t.text)
-    lmAddText(parent, "TELEGRAM @LEOMDZALLSRCLEAKISBACK", 11, t.text)
-    lmAddText(parent, "TELEGRAM @MDZCHEATS", 11, t.text)
+    lmAddText(parent, "CRIADO POR @LEO MODZ", 12, t.text)
+    lmAddText(parent, "TG @LEOMDZALLSRCLEAKISBACK", 11, t.text)
+    lmAddText(parent, "TG @MDZCHEATS", 11, t.text)
     lmAddText(parent, "●  STATUS: ONLINE", 12, "FF36E58A")
     lmClockText = lmAddText(parent, "DATA: --/--/----\nHORA: --:--:--", 12, t.text)
     if not lmClockThreadStarted then
@@ -1455,7 +1455,7 @@ local mainLayout = {
                     };
                     { View; layout_width="-1"; layout_height="1dp"; background="#66FFFFFF"; layout_marginBottom="5dp"; };
                 };
-                { FrameLayout; id="matrix_container"; layout_width="-1"; layout_height="25dp"; clipChildren=true; { TextView; id="fixed_info", text="CRIADO POR LEO MODZ", textColor="#FFFFFF", textSize="11sp", textStyle="bold", gravity="16", layout_width="-2", layout_height="-1", singleLine="true", ellipsize="none" }; };
+                { FrameLayout; id="matrix_container"; layout_width="-1"; layout_height="25dp"; clipChildren=true; { TextView; id="fixed_info", text="YOUTUBE @LEOMODZOFC1", textColor="#FFFFFF", textSize="11sp", textStyle="bold", gravity="16", layout_width="-2", layout_height="-1", singleLine="true", ellipsize="none" }; };
                 { ScrollView; id="scroll_content"; layout_width="-1"; layout_height="-1"; 
                     { LinearLayout; orientation="vertical"; id="content_derecha"; layout_width="-1"; layout_height="-2"; padding="10dp"; };
                 };
