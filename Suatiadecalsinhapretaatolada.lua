@@ -168,6 +168,8 @@ local function applyIcons()
         setIcon(tab_mapas, FontIcon.menu['fa-map'], "BYPASS")
         setIcon(tab_cheats, FontIcon.menu['fa-gamepad'], "CHEATS")
         setIcon(tab_regedit, FontIcon.menu['fa-code'], "REGEDIT")
+        pcall(function() setIcon(tab_custom, FontIcon.menu['fa-cog'], "CUSTOM") end)
+        pcall(function() setIcon(tab_info, FontIcon.menu['BookMark'], "INFO") end)
         
         if menu_title then
             menu_title.setTypeface(FontAwesome)
@@ -303,7 +305,7 @@ local function createFpsOverlay()
                 fps_view.setBackground(gd)
                 
                 fps_label = luajava.new(TextView, context)
-                fps_label.setTextColor(toJavaInt("FF34C759")) 
+                fps_label.setTextColor(toJavaInt("FF67E8F9")) 
                 fps_label.setTextSize(13) 
                 fps_label.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
                 fps_label.setText("FPS: --")
@@ -398,7 +400,7 @@ local function toggleFpsCounter(enable)
                                     fps_label.setText(string.format("FPS: %d", fps))
                                     
                                     if fps >= 55 then
-                                        fps_label.setTextColor(toJavaInt("FF34C759")) 
+                                        fps_label.setTextColor(toJavaInt("FF67E8F9")) 
                                     elseif fps >= 35 then
                                         fps_label.setTextColor(toJavaInt("FFFF9F0A")) 
                                     else
@@ -424,7 +426,7 @@ end
 
 local function getAnimatedDrawable(normalColors, radius, strokeColor)
     local states = luajava.new(StateListDrawable)
-    states.addState({android.R.attr.state_pressed}, getGradientShape({0xFF5555FF, 0xFFAAAAFF}, radius, 0xFFFFFFFF, dp2px(2.5)))
+    states.addState({android.R.attr.state_pressed}, getGradientShape({0xFFFF001E, 0xFFFF3B4F}, radius, 0xFFFFFFFF, dp2px(2.5)))
     states.addState({}, getGradientShape(normalColors, radius, strokeColor)); return states
 end
 
@@ -466,10 +468,10 @@ local function showToast(message, isEnabled)
                 if FontAwesome then
                     iconView.setTypeface(FontAwesome)
                     iconView.setText(getIcon(isEnabled and 0xf058 or 0xf057))
-                    iconView.setTextColor(toJavaInt(isEnabled and "FF34C759" or "FFFF3B30"))
+                    iconView.setTextColor(toJavaInt(isEnabled and "FF67E8F9" or "FFFF3B30"))
                 else
                     iconView.setText(isEnabled and "✓ " or "✗ ")
-                    iconView.setTextColor(toJavaInt(isEnabled and "FF34C759" or "FFFF3B30"))
+                    iconView.setTextColor(toJavaInt(isEnabled and "FF67E8F9" or "FFFF3B30"))
                 end
 
                 local toastText = luajava.new(TextView, context)
@@ -802,12 +804,12 @@ local function addSimpleButtonV2(parent, label, funcao)
     local container = luajava.new(LinearLayout, context)
     container.setOrientation(0)
     container.setGravity(16)
-    container.setPadding(dp2px(12), dp2px(10), dp2px(12), dp2px(10))
-    container.setBackground(getGradientShape({toJavaInt("FF0A0A0A"), toJavaInt("FF111111")}, dp2px(10), toJavaInt("FF222222"), dp2px(1)))
+    container.setPadding(dp2px(13), dp2px(11), dp2px(13), dp2px(11))
+    container.setBackground(getGradientShape({toJavaInt("FF12080D"), toJavaInt("FF1D0B12")}, dp2px(14), toJavaInt("FF5A1C2C"), dp2px(1)))
     container.setClickable(true)
     
     local iconView = luajava.new(TextView, context)
-    iconView.setTextColor(toJavaInt("FF007AFF")) 
+    iconView.setTextColor(toJavaInt("FFFF001E")) 
     iconView.setTextSize(16)
     iconView.setPadding(0, 0, dp2px(10), 0)
     
@@ -820,7 +822,7 @@ local function addSimpleButtonV2(parent, label, funcao)
 
     local txt = luajava.new(TextView, context)
     txt.setTextColor(-1)
-    txt.setTextSize(10.5)
+    txt.setTextSize(11)
     txt.setText(label)
     txt.setLayoutParams(luajava.new(LinearLayoutParams, 0, -2, 1))
     
@@ -844,15 +846,15 @@ local function addStyledSwitch(parent, label, key, ativar_func, desativar_func)
     local container = luajava.new(LinearLayout, context)
     container.setOrientation(0)
     container.setGravity(16)
-    container.setPadding(dp2px(12), dp2px(10), dp2px(12), dp2px(10))
-    container.setBackground(getGradientShape({toJavaInt("FF0A0A0A"), toJavaInt("FF111111")}, dp2px(10), toJavaInt("FF222222"), dp2px(1)))
+    container.setPadding(dp2px(13), dp2px(11), dp2px(13), dp2px(11))
+    container.setBackground(getGradientShape({toJavaInt("FF12080D"), toJavaInt("FF1D0B12")}, dp2px(14), toJavaInt("FF5A1C2C"), dp2px(1)))
     
     local textContainer = luajava.new(LinearLayout, context)
     textContainer.setLayoutParams(luajava.new(LinearLayoutParams, 0, -2, 1))
     textContainer.setGravity(16)
 
     local iconView = luajava.new(TextView, context)
-    iconView.setTextColor(toJavaInt("FF007AFF")) 
+    iconView.setTextColor(toJavaInt("FFFF001E")) 
     iconView.setTextSize(16)
     iconView.setPadding(0, 0, dp2px(10), 0)
     
@@ -864,7 +866,7 @@ local function addStyledSwitch(parent, label, key, ativar_func, desativar_func)
 
     local txt = luajava.new(TextView, context)
     txt.setTextColor(-1)
-    txt.setTextSize(10.5)
+    txt.setTextSize(11)
     txt.setText(label)
     
     textContainer.addView(iconView)
@@ -876,7 +878,7 @@ local function addStyledSwitch(parent, label, key, ativar_func, desativar_func)
     local function applyColors(sView, isChecked)
         pcall(function()
             local thumbColor = toJavaInt("FFFFFFFF")
-            local trackColor = isChecked and toJavaInt("FF34C759") or toJavaInt("FF39393D")
+            local trackColor = isChecked and toJavaInt("FF67E8F9") or toJavaInt("FF5A1C2C")
             sView.getThumbDrawable().setColorFilter(thumbColor, PorterDuff.Mode.SRC_IN)
             sView.getTrackDrawable().setColorFilter(trackColor, PorterDuff.Mode.SRC_IN)
         end)
@@ -960,10 +962,10 @@ local function addMiraAdjustButtons(parent)
     end
     
     -- EQUERDA(-4) / DIREITA(5) / BAIXO(5) / CIMA(-4)
-    local btnLeft = createSmallButton("◀", 0xFF444444, function() ajustarMiraX(-4) end)
-    local btnRight = createSmallButton("▶", 0xFF444444, function() ajustarMiraX(5) end)
-    local btnDown = createSmallButton("▼", 0xFF444444, function() ajustarMiraY(5) end)
-    local btnUp = createSmallButton("▲", 0xFF444444, function() ajustarMiraY(-4) end)
+    local btnLeft = createSmallButton("◀", 0xFFFF001E44, function() ajustarMiraX(-4) end)
+    local btnRight = createSmallButton("▶", 0xFFFF001E44, function() ajustarMiraX(5) end)
+    local btnDown = createSmallButton("▼", 0xFFFF001E44, function() ajustarMiraY(5) end)
+    local btnUp = createSmallButton("▲", 0xFFFF001E44, function() ajustarMiraY(-4) end)
     
     buttonContainer.addView(btnLeft)
     buttonContainer.addView(btnRight)
@@ -1017,15 +1019,15 @@ end
 local function addStyledSeekBar(parent, label, min, max, key)
     local container = luajava.new(LinearLayout, context)
     container.setOrientation(1)
-    container.setPadding(dp2px(12), dp2px(10), dp2px(12), dp2px(10))
-    container.setBackground(getGradientShape({toJavaInt("FF0A0A0A"), toJavaInt("FF111111")}, dp2px(10), toJavaInt("FF222222"), dp2px(1)))
+    container.setPadding(dp2px(13), dp2px(11), dp2px(13), dp2px(11))
+    container.setBackground(getGradientShape({toJavaInt("FF12080D"), toJavaInt("FF1D0B12")}, dp2px(14), toJavaInt("FF5A1C2C"), dp2px(1)))
     
     local header = luajava.new(LinearLayout, context)
     header.setOrientation(0)
     header.setGravity(16)
     
     local iconView = luajava.new(TextView, context)
-    iconView.setTextColor(toJavaInt("FF007AFF")) 
+    iconView.setTextColor(toJavaInt("FFFF001E")) 
     iconView.setTextSize(14)
     iconView.setPadding(0, 0, dp2px(8), 0)
     
@@ -1036,13 +1038,13 @@ local function addStyledSeekBar(parent, label, min, max, key)
     end
     
     local txt = luajava.new(TextView, context)
-    txt.setTextColor(toJavaInt("FFBBBBBB"))
-    txt.setTextSize(10.5)
+    txt.setTextColor(toJavaInt("FFD5D7E5"))
+    txt.setTextSize(11)
     txt.setText(label)
     txt.setLayoutParams(luajava.new(LinearLayoutParams, 0, -2, 1))
     
     local valTxt = luajava.new(TextView, context)
-    valTxt.setTextColor(toJavaInt("FF34C759")) 
+    valTxt.setTextColor(toJavaInt("FF67E8F9")) 
     valTxt.setTextSize(10.5)
     valTxt.setText(tostring(switchStates[key] or min))
     
@@ -1057,7 +1059,7 @@ local function addStyledSeekBar(parent, label, min, max, key)
     
     pcall(function()
         sb.getThumb().setColorFilter(toJavaInt("FFFFFFFF"), PorterDuff.Mode.SRC_IN)
-        sb.getProgressDrawable().setColorFilter(toJavaInt("FF34C759"), PorterDuff.Mode.SRC_IN)
+        sb.getProgressDrawable().setColorFilter(toJavaInt("FF67E8F9"), PorterDuff.Mode.SRC_IN)
     end)
     
     sb.setOnSeekBarChangeListener(luajava.createProxy("android.widget.SeekBar$OnSeekBarChangeListener", {
@@ -1099,6 +1101,197 @@ local function addStyledSeekBar(parent, label, min, max, key)
     container.setLayoutParams(lp_res)
 end
 
+-- Personalizacao visual do menu (valores alterados pela aba CUSTOM).
+local LM_THEME_PRESETS = {
+    {name="VERMELHO INTENSO", accent="FFFF1738", accentDark="FF780018", panel="FF10070A", panel2="FF1C0A10", text="FFFFFFFF"},
+    {name="ROXO NEON", accent="FFB34DFF", accentDark="FF4A1680", panel="FF100819", panel2="FF21102E", text="FFFFFFFF"},
+    {name="AZUL ELETRICO", accent="FF168BFF", accentDark="FF083B83", panel="FF06101C", panel2="FF0D2035", text="FFFFFFFF"},
+    {name="VERDE NEON", accent="FF24E58A", accentDark="FF08643B", panel="FF06140E", panel2="FF0D281B", text="FFFFFFFF"},
+    {name="LARANJA", accent="FFFF7A18", accentDark="FF8A3200", panel="FF170C05", panel2="FF2A1608", text="FFFFFFFF"}
+}
+local lmThemeIndex = 1
+local lmCornerDp = 16
+local lmParticlesEnabled = true
+local lmEffectsEnabled = true
+local lmParticleColors = {"FF168BFF", "FFFF1744", "FFFFFFFF", "FFB34DFF", "FF24E58A", "FFFFD43B"}
+local lmParticleColorIndex = 1
+-- Cores livres escolhidas pela paleta/ColorEdit da aba CUSTOM.
+local lmCustomColors = { accent = nil, panel = nil, button = nil, particle = nil }
+local lmPalette = {
+    "FFFF1744", "FFB00020", "FFFF5252", "FFFF4081", "FFB34DFF", "FF7C4DFF",
+    "FF2979FF", "FF00B0FF", "FF00E5FF", "FF00C853", "FF76FF03", "FFFFD600",
+    "FFFF9100", "FFFFFFFF", "FFB0BEC5", "FF607D8B", "FF303030", "FF080808"
+}
+local lmParticlesCount = 22
+local lmClockThreadStarted = false
+local lmClockText = nil
+local blue_pure, pure_white, red_grad = {toJavaInt("FF300008"), toJavaInt("FFFF001E")}, 0xFFFFFFFF, {toJavaInt("FFFF001E"), toJavaInt("FF7A0010")}
+local red_transparent = {toJavaInt("66333333"), toJavaInt("44333333")}
+local red_pure = toJavaInt("FFFF001E")
+local iniciarParticulasAzuis
+local function lmTheme()
+    local base = LM_THEME_PRESETS[lmThemeIndex] or LM_THEME_PRESETS[1]
+    return {
+        name = base.name, accent = lmCustomColors.accent or base.accent,
+        accentDark = base.accentDark, panel = lmCustomColors.panel or base.panel,
+        panel2 = lmCustomColors.button or base.panel2, text = base.text
+    }
+end
+local function lmApplyTheme()
+    pcall(function()
+        local t = lmTheme()
+        blue_pure = {toJavaInt(t.accentDark), toJavaInt(t.accent)}
+        red_grad = {toJavaInt(t.accent), toJavaInt(t.accentDark)}
+        red_transparent = {toJavaInt("66333333"), toJavaInt("44333333")}
+        red_pure = toJavaInt(t.accent)
+        local contentFrame = view and view.findViewWithTag("main_frame")
+        if contentFrame then
+            local bg = luajava.new(GradientDrawable)
+            bg.setColor(toJavaInt(t.panel)); bg.setCornerRadius(dp2px(lmCornerDp))
+            local stroke = luajava.new(GradientDrawable)
+            stroke.setCornerRadius(dp2px(lmCornerDp)); stroke.setStroke(dp2px(1), toJavaInt(t.accent))
+            contentFrame.setBackground(luajava.new(LayerDrawable, {bg, stroke}))
+        end
+        if lmParticlesEnabled then iniciarParticulasAzuis() elseif particles_layer then particles_layer.removeAllViews() end
+        if menu_title then menu_title.setTextColor(toJavaInt(t.text)) end
+        if view then view.invalidate() end
+    end)
+end
+local function lmAddText(parent, value, size, color)
+    local tv = luajava.new(TextView, context)
+    tv.setText(tostring(value)); tv.setTextSize(size or 12)
+    tv.setTextColor(toJavaInt(color or "FFFFFFFF")); tv.setPadding(dp2px(8), dp2px(8), dp2px(8), dp2px(8))
+    tv.setGravity(3); tv.setTypeface(luajava.bindClass("android.graphics.Typeface").create("sans-serif-medium", 0))
+    local lpv = luajava.new(LinearLayoutParams, -1, -2); lpv.setMargins(0, 0, 0, dp2px(5)); tv.setLayoutParams(lpv)
+    parent.addView(tv); return tv
+end
+local function lmAddAction(parent, label, callback)
+    local btn = luajava.new(TextView, context)
+    btn.setText(label); btn.setTextSize(11); btn.setGravity(17); btn.setTextColor(toJavaInt("FFFFFFFF")); btn.setPadding(dp2px(10), dp2px(11), dp2px(10), dp2px(11))
+    btn.setBackground(getGradientShape({toJavaInt(lmTheme().panel2), toJavaInt(lmTheme().panel)}, dp2px(lmCornerDp), toJavaInt(lmTheme().accent), dp2px(1)))
+    local p = luajava.new(LinearLayoutParams, -1, -2); p.setMargins(0, 0, 0, dp2px(7)); btn.setLayoutParams(p)
+    btn.setOnClickListener(luajava.createProxy("android.view.View$OnClickListener", {onClick=function() pcall(callback) end}))
+    parent.addView(btn); return btn
+end
+local function lmRefreshCustom()
+    lmApplyTheme()
+    if updateTabContent then updateTabContent("CUSTOM") end
+end
+local function lmSetPickedColor(kind, color)
+    color = tostring(color or ""):gsub("#", ""):upper()
+    if #color == 6 then color = "FF" .. color end
+    if #color ~= 8 or not color:match("^%x+$") then
+        pcall(function() gg.toast("COR INVÁLIDA. USE HEX: #RRGGBB") end)
+        return
+    end
+    color = color:sub(1, 2) .. color:sub(3)
+    if kind == "particle" then
+        lmCustomColors.particle = color
+        lmParticleColors[lmParticleColorIndex] = color
+    else
+        lmCustomColors[kind] = color
+    end
+    lmRefreshCustom()
+end
+local function lmShowHexColorDialog(kind, label)
+    pcall(function()
+        local AlertDialog = luajava.bindClass("android.app.AlertDialog$Builder")
+        local EditText = luajava.bindClass("android.widget.EditText")
+        local input = luajava.new(EditText, context)
+        input.setSingleLine(true)
+        input.setHint("#FF1744 ou FFFF1744")
+        input.setTextColor(toJavaInt("FFFFFFFF"))
+        input.setHintTextColor(toJavaInt("FF999999"))
+        input.setPadding(dp2px(14), dp2px(10), dp2px(14), dp2px(10))
+        local bg = luajava.new(GradientDrawable)
+        bg.setColor(toJavaInt("FF171717")); bg.setCornerRadius(dp2px(10)); bg.setStroke(dp2px(1), toJavaInt(lmTheme().accent))
+        input.setBackground(bg)
+        local builder = luajava.new(AlertDialog, context)
+        builder.setTitle("COLOR EDIT — " .. label)
+        builder.setMessage("DIGITE UMA COR HEXADECIMAL")
+        builder.setView(input)
+        builder.setPositiveButton("APLICAR", luajava.createProxy("android.content.DialogInterface$OnClickListener", {onClick=function() lmSetPickedColor(kind, tostring(input.getText())) end}))
+        builder.setNegativeButton("CANCELAR", nil)
+        builder.show()
+    end)
+end
+local function lmShowColorPalette(parent, kind, label)
+    lmAddText(parent, "PALETA — " .. label, 11, lmTheme().text)
+    local rows = { }
+    local row = nil
+    for i, hex in ipairs(lmPalette) do
+        if (i - 1) % 6 == 0 then
+            row = luajava.new(LinearLayout, context)
+            row.setOrientation(0)
+            local rp = luajava.new(LinearLayoutParams, -1, dp2px(39)); rp.setMargins(0, 0, 0, dp2px(5))
+            parent.addView(row, rp); rows[#rows + 1] = row
+        end
+        local swatch = luajava.new(TextView, context)
+        swatch.setText("●"); swatch.setTextSize(21); swatch.setGravity(17)
+        swatch.setTextColor(toJavaInt(hex)); swatch.setBackground(getGradientShape({toJavaInt("FF171717"), toJavaInt("FF101010")}, dp2px(8), toJavaInt("FF393939"), dp2px(1)))
+        local wp = luajava.new(LinearLayoutParams, 0, -1, 1); wp.setMargins(dp2px(2), 0, dp2px(2), 0)
+        row.addView(swatch, wp)
+        swatch.setOnClickListener(luajava.createProxy("android.view.View$OnClickListener", {onClick=function() lmSetPickedColor(kind, hex) end}))
+        swatch.setOnLongClickListener(luajava.createProxy("android.view.View$OnLongClickListener", {onLongClick=function() lmShowHexColorDialog(kind, label); return true end}))
+    end
+    lmAddAction(parent, "✎  COLOR EDIT — DIGITAR HEX PERSONALIZADO", function() lmShowHexColorDialog(kind, label) end)
+end
+local function lmShowCustom(parent)
+    local t = lmTheme()
+    lmAddText(parent, "PERSONALIZE O MENU", 15, t.accent)
+    lmAddText(parent, "TEMA ATUAL: " .. t.name, 11, t.text)
+    lmAddAction(parent, "🎨  TROCAR TEMA BASE", function()
+        lmThemeIndex = (lmThemeIndex % #LM_THEME_PRESETS) + 1
+        lmRefreshCustom()
+    end)
+    lmAddText(parent, "TOQUE EM UMA COR PARA APLICAR. TOQUE EM COLOR EDIT PARA INFORMAR HEX.", 10, "FFB9B9C4")
+    lmShowColorPalette(parent, "accent", "COR PRINCIPAL / DESTAQUES")
+    lmShowColorPalette(parent, "button", "COR DOS BOTÕES")
+    lmShowColorPalette(parent, "panel", "COR DO FUNDO DO MENU")
+    lmShowColorPalette(parent, "particle", "COR DAS PARTÍCULAS")
+    lmAddAction(parent, (lmParticlesEnabled and "✓  PARTÍCULAS: LIGADAS" or "○  PARTÍCULAS: DESLIGADAS"), function()
+        lmParticlesEnabled = not lmParticlesEnabled
+        lmApplyTheme(); updateTabContent("CUSTOM")
+    end)
+    lmAddAction(parent, (lmEffectsEnabled and "✓  EFEITOS: LIGADOS" or "○  EFEITOS: DESLIGADOS"), function()
+        lmEffectsEnabled = not lmEffectsEnabled
+        lmApplyTheme(); updateTabContent("CUSTOM")
+    end)
+    lmAddAction(parent, "＋  AUMENTAR ARREDONDAMENTO  (" .. lmCornerDp .. "dp)", function()
+        lmCornerDp = math.min(30, lmCornerDp + 2); lmApplyTheme(); updateTabContent("CUSTOM")
+    end)
+    lmAddAction(parent, "－  DIMINUIR ARREDONDAMENTO  (" .. lmCornerDp .. "dp)", function()
+        lmCornerDp = math.max(0, lmCornerDp - 2); lmApplyTheme(); updateTabContent("CUSTOM")
+    end)
+    lmAddAction(parent, "＋  MAIS PARTÍCULAS  (" .. lmParticlesCount .. ")", function()
+        lmParticlesCount = math.min(55, lmParticlesCount + 5); lmApplyTheme(); updateTabContent("CUSTOM")
+    end)
+    lmAddAction(parent, "－  MENOS PARTÍCULAS  (" .. lmParticlesCount .. ")", function()
+        lmParticlesCount = math.max(0, lmParticlesCount - 5); lmApplyTheme(); updateTabContent("CUSTOM")
+    end)
+    lmAddText(parent, "As alteracoes sao aplicadas imediatamente. As opcoes de tema mudam as cores do painel, abas, bordas e particulas.", 10, "FFB9B9C4")
+end
+local function lmShowInfo(parent)
+    local t = lmTheme()
+    lmAddText(parent, "LM TEAM PLUS", 18, t.accent)
+    lmAddText(parent, "CRIADO OFICIAL @LEO MODZ", 12, t.text)
+    lmAddText(parent, "TELEGRAM @LEOMDZALLSRCLEAKISBACK", 11, t.text)
+    lmAddText(parent, "TELEGRAM @MDZCHEATS", 11, t.text)
+    lmAddText(parent, "●  STATUS: ONLINE", 12, "FF36E58A")
+    lmClockText = lmAddText(parent, "DATA: --/--/----\nHORA: --:--:--", 12, t.text)
+    if not lmClockThreadStarted then
+        lmClockThreadStarted = true
+        thread(function()
+            while menu_active ~= false do
+                local stamp = os.date("%d/%m/%Y") .. "\nDIA: " .. os.date("%A") .. "\nHORA: " .. os.date("%H:%M:%S")
+                pcall(function() activity.runOnUiThread(luajava.createProxy("java.lang.Runnable", {run=function() pcall(function() if lmClockText and lmClockText.getParent() then lmClockText.setText(stamp) end end) end})) end)
+                gg.sleep(1000)
+            end
+            lmClockThreadStarted = false
+        end)
+    end
+end
+
 -- ============================================
 -- 08. CONTEÚDO DAS ABAS
 -- ============================================
@@ -1111,9 +1304,37 @@ function updateTabContent(title)
                     applyIcons() 
                 end
 
+                -- Destaca a aba selecionada e mantém as demais discretas.
+                pcall(function()
+                    local tabs = {
+                        PLAYER = tab_player,
+                        ANTENA = tab_visual,
+                        MAPAS = tab_mapas,
+                        CHEATS = tab_cheats,
+                        REGEDIT = tab_regedit,
+                        INFO = tab_info,
+                        CUSTOM = tab_custom
+                    }
+                    for nome, tab in pairs(tabs) do
+                        if tab then
+                            if nome == title then
+                                tab.setBackground(getGradientShape(
+                                    {toJavaInt(lmTheme().accent), toJavaInt(lmTheme().accentDark)},
+                                    dp2px(lmCornerDp), toJavaInt(lmTheme().accent), dp2px(1)))
+                                tab.setTextColor(toJavaInt("FFFFFFFF"))
+                            else
+                                tab.setBackground(getGradientShape(
+                                    {toJavaInt(lmTheme().panel), toJavaInt(lmTheme().panel2)},
+                                    dp2px(lmCornerDp), toJavaInt(lmTheme().accentDark), dp2px(1)))
+                                tab.setTextColor(toJavaInt(lmTheme().text))
+                            end
+                        end
+                    end
+                end)
+
                 if content_derecha then
                     content_derecha.removeAllViews()
-local data = {
+                    local data = {
                         PLAYER = {
                             {name = "AIMBOT BRAÇO BUGADO", type = "switch", key = "LM_AIMBOT", ativar = nightmode, desativar = nightmode},
                             {name = "RELAR KIT 3 SEGUNDOS", type = "switch", key = "LM_CAMERA_FOV", ativar = nightmode222, desativar = nightmode222},
@@ -1130,32 +1351,11 @@ local data = {
 
                         },
                         CHEATS = {
-                            {name = "SPEED HACK 100X", type = "switch", key = "LM_SPEEDHACK", ativar = speedhk, desativar = speedhk},
-{
-    name = "SPEED PLAYER 20X",
-    type = "switch",
-    key = "LM_SPEED_20X",
-    ativar = speed20x
-},
-{
-    name = "SPEED PLAYER 30X",
-    type = "switch",
-    key = "LM_SPEED_30X",
-    ativar = speed30x
-},
-{
-    name = "SPEED PLAYER 50X",
-    type = "switch",
-    key = "LM_SPEED_50X",
-    ativar = speed50x
-},
-{
-    name = "SPEED PLAYER 100X",
-    type = "switch",
-    key = "LM_SPEED_100X",
-    ativar = speed100x
-},
+                            {name = "MATAR COM PUNHO", type = "switch", key = "LM_FISTKILL", ativar = a1, desativar = nil},
+                            {name = "SPEED PLAYER 10X", type = "switch", key = "LM_SPEEDHACK", ativar = speed20x, desativar = nil}
                         },
+
+                        
                         REGEDIT = {
                             {name = "REGEDIT HS 50% #1", type = "switch", key = "LM_REGEDIT_HS50_1", ativar = v1, desativar = v1},
                             {name = "REGEDIT HS 60% #2", type = "switch", key = "LM_REGEDIT_HS60_2", ativar = v2, desativar = v2},
@@ -1176,6 +1376,11 @@ local data = {
                     }
 
 
+                    if title == "CUSTOM" then
+                        lmShowCustom(content_derecha)
+                    elseif title == "INFO" then
+                        lmShowInfo(content_derecha)
+                    end
                     local options = data[title] or {}
 
                     for _, item in ipairs(options) do
@@ -1204,9 +1409,7 @@ local data = {
     }))
 end
 
-local blue_pure, pure_white, red_grad = {toJavaInt("FF00008B"), toJavaInt("FF0000FF")}, 0xFFFFFFFF, {toJavaInt("FFED213A"), toJavaInt("FF93291E")}
-local red_transparent = {toJavaInt("66FF0000"), toJavaInt("44FF0000")} 
-local red_pure = toJavaInt("FFFF0000")
+
 
 -- ============================================
 -- 09. LAYOUT PRINCIPAL
@@ -1221,18 +1424,20 @@ local mainLayout = {
                 LinearLayout; id="side_container"; orientation="vertical"; layout_width="-2"; layout_height="-1"; gravity="1";
                 { ImageView; id="img_banner"; layout_width="55dp"; layout_height="55dp"; clickable=true; layout_gravity="1"; background="#00000000"; };
                 {
-                    LinearLayout; id="sidebar_content"; orientation="vertical"; layout_width="110dp"; layout_height="-1";
+                    LinearLayout; id="sidebar_content"; orientation="vertical"; layout_width="116dp"; layout_height="-1";
                     { TextView; id="shimmer_main_title", text="LM TEAM PLUS V6"; textColor="-1"; textSize="11sp"; textStyle="bold"; layout_width="-1"; layout_marginTop="6dp"; gravity="1"; };
-                    { View; layout_width="-1"; layout_height="2dp"; background=getGradientShape({toJavaInt("FF0000FF"), 0}, 0); layout_marginTop="8dp"; layout_marginBottom="12dp"; };
+                    { View; layout_width="-1"; layout_height="2dp"; background=getGradientShape({toJavaInt("FFFF001E"), 0}, 0); layout_marginTop="8dp"; layout_marginBottom="12dp"; };
                     {
                         ScrollView; layout_width="-1"; layout_height="0dp"; layout_weight="1"; fillViewport=true;
                         {
                             LinearLayout; orientation="vertical"; layout_width="-1"; layout_height="-2";
-                            { TextView; id="tab_player", text="PLAYER", layout_width="-1", layout_height="35dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="8dp", layout_marginHorizontal="8dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
-                            { TextView; id="tab_visual", text="ANTENA", layout_width="-1", layout_height="35dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="8dp", layout_marginHorizontal="8dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
-                            { TextView; id="tab_mapas", text="BTPASS", layout_width="-1", layout_height="35dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="8dp", layout_marginHorizontal="8dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
-                            { TextView; id="tab_cheats", text="CHEATS", layout_width="-1", layout_height="35dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="8dp", layout_marginHorizontal="8dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
-                            { TextView; id="tab_regedit", text="REGEDIT", layout_width="-1", layout_height="35dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="8dp", layout_marginHorizontal="8dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_player", text="PLAYER", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_visual", text="ANTENA", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_mapas", text="BYPASS", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_cheats", text="CHEATS", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_regedit", text="REGEDIT", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_custom", text="CUSTOM", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
+                            { TextView; id="tab_info", text="INFO", layout_width="-1", layout_height="39dp", gravity="17", textColor="-1", textSize="9sp", textStyle="bold", layout_marginBottom="7dp", layout_marginHorizontal="6dp", clickable=true, background=getAnimatedDrawable(blue_pure, dp2px(10), pure_white) },
                         };
                     };
                     { TextView; id="btn_exit", text="FECHAR", textColor="-1"; textSize="9sp"; textStyle="bold"; gravity="17"; layout_width="-1"; layout_height="30dp"; layout_marginBottom="10dp"; layout_marginHorizontal="12dp"; clickable=true; background=getGradientShape(red_transparent, dp2px(12), red_pure, dp2px(1.5)); };
@@ -1257,6 +1462,9 @@ local mainLayout = {
             };
         };
         {
+            FrameLayout; id="particles_layer"; layout_width="-1"; layout_height="-1"; background="#00000000"; clickable=false; focusable=false; clipChildren=true;
+        };
+        {
             FrameLayout; id="global_splash"; layout_width="-1"; layout_height="-1";
             {
                 LinearLayout; orientation="vertical"; gravity="17"; layout_width="-1"; layout_height="-1";
@@ -1270,14 +1478,116 @@ local mainLayout = {
 -- ============================================
 -- 10. INICIALIZAÇÃO E EVENTOS DA INTERFACE
 -- ============================================
+-- Fonte moderna do Android: visual mais limpo e legivel, sem baixar arquivos externos.
+local function aplicarFonteModerna(root)
+    pcall(function()
+        local Typeface = luajava.bindClass("android.graphics.Typeface")
+        local ViewGroup = luajava.bindClass("android.view.ViewGroup")
+        local fonte = Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        local function percorrer(v)
+            if not v then return end
+            pcall(function() v.setTypeface(fonte) end)
+            pcall(function()
+                if luajava.instanceof(v, ViewGroup) then
+                    for i = 0, v.getChildCount() - 1 do percorrer(v.getChildAt(i)) end
+                end
+            end)
+        end
+        percorrer(root)
+    end)
+end
+
+-- Particulas triangulares animadas. Usa glifos Android (TextView) para evitar falhas
+-- de PathShape/ShapeDrawable em algumas versoes do LuaJava/GameGuardian.
+iniciarParticulasAzuis = function()
+    pcall(function()
+        if not lmParticlesEnabled or not particles_layer then return end
+
+        -- Cancela/remova as particulas anteriores antes de recriar.
+        particles_layer.removeAllViews()
+        particles_layer.setVisibility(View.VISIBLE)
+        particles_layer.setClickable(false)
+        particles_layer.setFocusable(false)
+        pcall(function() particles_layer.setImportantForAccessibility(2) end)
+
+        local LinearInterpolator = luajava.bindClass("android.view.animation.LinearInterpolator")
+        local largura = math.max(1, tonumber(lp and lp.width) or dp2px(410))
+        local altura = math.max(1, tonumber(lp and lp.height) or dp2px(390))
+        local hex = lmCustomColors.particle or lmParticleColors[lmParticleColorIndex] or "FF168BFF"
+        hex = tostring(hex):gsub("#", "")
+        if #hex == 6 then hex = "FF" .. hex end
+        if #hex ~= 8 then hex = "FF168BFF" end
+        local corTriangulo = toJavaInt(hex)
+
+        for i = 1, lmParticlesCount do
+            local tamanhoDp = math.random(9, 17)
+            local tamanhoPx = dp2px(tamanhoDp)
+            local tri = luajava.new(TextView, context)
+            tri.setText("▲")
+            tri.setTextSize(tamanhoDp)
+            tri.setTextColor(corTriangulo)
+            tri.setGravity(17)
+            tri.setIncludeFontPadding(false)
+            tri.setSingleLine(true)
+            tri.setPadding(0, 0, 0, 0)
+            tri.setBackgroundColor(0x00000000)
+            tri.setAlpha(0.25 + math.random() * 0.65)
+            tri.setRotation(math.random(0, 359))
+            tri.setClickable(false)
+            tri.setFocusable(false)
+            pcall(function()
+                tri.setShadowLayer(dp2px(4), 0, 0, corTriangulo)
+            end)
+
+            local params = luajava.new(FrameLayoutParams, math.max(tamanhoPx * 2, dp2px(20)), math.max(tamanhoPx * 2, dp2px(20)))
+            params.leftMargin = math.random(0, math.max(0, largura - params.width))
+            params.topMargin = math.random(0, math.max(0, altura - params.height))
+            particles_layer.addView(tri, params)
+
+            if lmEffectsEnabled then
+                local subir = ObjectAnimator.ofFloat(tri, "translationY", 0, -dp2px(math.random(90, 230)))
+                subir.setDuration(math.random(4000, 8000))
+                subir.setRepeatCount(-1)
+                subir.setInterpolator(luajava.new(LinearInterpolator))
+                subir.setStartDelay(math.random(0, 1800))
+                subir.start()
+
+                local flutuar = ObjectAnimator.ofFloat(tri, "translationX", 0, dp2px(math.random(-28, 28)), 0)
+                flutuar.setDuration(math.random(2200, 4500))
+                flutuar.setRepeatCount(-1)
+                flutuar.setInterpolator(luajava.new(LinearInterpolator))
+                flutuar.start()
+
+                local girar = ObjectAnimator.ofFloat(tri, "rotation", math.random(0, 90), math.random(180, 540))
+                girar.setDuration(math.random(4500, 8500))
+                girar.setRepeatCount(-1)
+                girar.setInterpolator(luajava.new(LinearInterpolator))
+                girar.start()
+
+                local brilho = ObjectAnimator.ofFloat(tri, "alpha", 0.18, 0.95, 0.18)
+                brilho.setDuration(math.random(1800, 3800))
+                brilho.setRepeatCount(-1)
+                brilho.setInterpolator(luajava.new(LinearInterpolator))
+                brilho.start()
+            end
+        end
+        particles_layer.invalidate()
+        particles_layer.requestLayout()
+    end)
+end
+
 invoke = function()
     pcall(function()
-        view = loadlayout(mainLayout); updateTabContent("PLAYER")
+        view = loadlayout(mainLayout)
+        aplicarFonteModerna(view)
+        if lmParticlesEnabled then iniciarParticulasAzuis() end
+        applyIcons()
+        updateTabContent("PLAYER")
         
         carregarOffsetMira()
         
         pcall(function()
-            local menuRadius = dp2px(12)
+            local menuRadius = dp2px(lmCornerDp)
             local contentFrame = view.findViewWithTag("main_frame")
             if contentFrame then
                 local backBg = luajava.new(GradientDrawable)
@@ -1290,6 +1600,7 @@ invoke = function()
             end
         end)
         
+        pcall(function() lmApplyTheme() end)
         lp = luajava.new(LayoutParams)
         lp.type = (Build.VERSION.SDK_INT >= 26) and 2038 or 2002
         lp.format = -3
@@ -1297,8 +1608,8 @@ invoke = function()
         lp.x = 0
         lp.y = 0
         lp.flags = 8 | 32
-        lp.width = dp2px(400)
-        lp.height = dp2px(375)
+        lp.width = dp2px(410)
+        lp.height = dp2px(390)
         
         local th = luajava.createProxy("android.view.View$OnTouchListener", { 
             onTouch = function(v, e) 
@@ -1329,6 +1640,8 @@ invoke = function()
         tab_mapas.onClick = function() updateTabContent("MAPAS"); lp.flags = 8 | 32; syncFlagSecure(lp, window, view) end
         tab_cheats.onClick = function() updateTabContent("CHEATS"); lp.flags = 8 | 32; syncFlagSecure(lp, window, view) end
         tab_regedit.onClick = function() updateTabContent("REGEDIT"); lp.flags = 8 | 32; syncFlagSecure(lp, window, view) end
+        tab_custom.onClick = function() updateTabContent("CUSTOM"); lp.flags = 8 | 32; syncFlagSecure(lp, window, view) end
+        tab_info.onClick = function() updateTabContent("INFO"); lp.flags = 8 | 32; syncFlagSecure(lp, window, view) end
         
         btn_exit.onClick = function()
             menu_active = false
@@ -1404,7 +1717,7 @@ invoke = function()
                 lp.width, lp.height = dp2px(60), dp2px(60) 
             else 
                 pcall(function()
-                    local menuRadius = dp2px(12)
+                    local menuRadius = dp2px(20)
                     local contentFrame = root.findViewWithTag("main_frame")
                     if contentFrame then
                         local backBg = luajava.new(GradientDrawable)
@@ -1431,7 +1744,7 @@ invoke = function()
                     progressBar = luajava.new(View, context); local progressShape = luajava.new(GradientDrawable); progressShape.setColor(toJavaInt("FFFFFFFF")); progressShape.setCornerRadius(dp2px(2)); progressBar.setBackground(progressShape); global_splash.addView(progressBar, FrameLayoutParams(0, dp2px(4), 17))
                     
                     retryButton = luajava.new(Button, context); retryButton.setText("TRY AGAIN"); retryButton.setVisibility(8); retryButton.setTextColor(toJavaInt("FFFFFFFF"))
-                    local btnBg = luajava.new(GradientDrawable); btnBg.setColor(toJavaInt("33FF4444")); btnBg.setCornerRadius(dp2px(10)); btnBg.setStroke(dp2px(1), toJavaInt("66FF4444")); retryButton.setBackground(btnBg)
+                    local btnBg = luajava.new(GradientDrawable); btnBg.setColor(toJavaInt("33FF001E")); btnBg.setCornerRadius(dp2px(10)); btnBg.setStroke(dp2px(1), toJavaInt("66FF001E")); retryButton.setBackground(btnBg)
                     global_splash.addView(retryButton, FrameLayoutParams(dp2px(140), dp2px(38), 17))
                     retryButton.setOnClickListener(luajava.createProxy("android.view.View$OnClickListener", { onClick = function(v) v.setVisibility(8); if splash_status then splash_status.setText("RECONNECTING...") end; load_assets_direct() end }))
                 end
@@ -1846,15 +2159,9 @@ end
 function speedplayer()
 menua = gg.multiChoice({
 "SPEED PLAYER 20X",
-"SPEED PLAYER 30X",
-"SPEED PLAYER 50X",
-"SPEED PLAYER 100X",
 "◀ VOLTAR"},nil,"▶ESCOLHA SEU SPEED")
 if menua == nil then else
 if menua [1] ==true then speed20x() end
-if menua [2] ==true then speed30x() end
-if menua [3] ==true then speed50x() end
-if menua [4] ==true then speed100x() end
 if menua [5] ==true then Main() end
 end
 XGCK= -1
@@ -1868,43 +2175,10 @@ gg.setRanges(gg.REGION_ANONYMOUS)
 gg.searchNumber("2.80259693e-44F;1.20000004768F;0.18000000715F;1.40129846e-45F", 16)
 gg.refineNumber("1.20000004768", 16)
 gg.getResults(gg.getResultsCount())
-gg.editAll("6.70", 16)
+gg.editAll("4.10", 16)
 gg.clearResults(gg.getResultsCount())
-gg.toast("SPEED PLAYER 20X ATIVADO 🏃‍♂️")
+gg.toast("SPEED PLAYER 10X ATIVADO 🏃‍♂️")
 end
-
-
-function speed30x()
-gg.setRanges(gg.REGION_ANONYMOUS)
-gg.searchNumber("2.80259693e-44F;1.20000004768F;0.18000000715F;1.40129846e-45F", 16)
-gg.refineNumber("1.20000004768", 16)
-gg.getResults(gg.getResultsCount())
-gg.editAll("3.900", 16)
-gg.clearResults(gg.getResultsCount())
-gg.toast("SPEED PLAYER 30X ATIVADO 🏃‍♂️")
-end
-
-function speed50x()
-gg.setRanges(gg.REGION_ANONYMOUS)
-gg.searchNumber("2.80259693e-44F;1.20000004768F;0.18000000715F;1.40129846e-45F", 16)
-gg.refineNumber("1.20000004768", 16)
-gg.getResults(gg.getResultsCount())
-gg.editAll("10.80", 16)
-gg.clearResults(gg.getResultsCount())
-gg.toast("SPEED PLAYER 50X ATIVADO 🏃‍♂️")
-end
-
-function speed100x()
-gg.setRanges(gg.REGION_ANONYMOUS)
-gg.searchNumber("2.80259693e-44F;1.20000004768F;0.18000000715F;1.40129846e-45F", 16)
-gg.refineNumber("1.20000004768", 16)
-gg.getResults(gg.getResultsCount())
-gg.editAll("9.909", 16)
-gg.clearResults(gg.getResultsCount())
-gg.toast("SPEED PLAYER 100X ATIVADO 🏃‍♂️")
-end
-
-
 
 
 function antenas()
